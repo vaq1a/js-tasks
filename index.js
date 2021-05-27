@@ -62,3 +62,34 @@ function stat(strg) {
 
 console.log(stat("01|15|59, 1|47|16, 01|17|20, 1|32|34, 2|17|17")); //Range: 01|01|18 Average: 01|38|05 Median: 01|32|34
 console.log(stat("02|15|59, 2|47|16, 02|17|20, 2|32|34, 2|17|17, 2|22|00, 2|31|41")); //Range: 00|31|17 Average: 02|26|18 Median: 02|22|00
+
+//--------------------3--------------------
+
+function travel(r, zipcode) {
+    if(!zipcode.length) {
+        return ':/';
+    }
+
+    let regexp = new RegExp(`^(?<home>\\d+?)\\s(?<street>.+[^${zipcode}])\\s(?<zipcode>${zipcode})\\b`, 'i');
+    let resultHome = [];
+    let resultStreet = [];
+
+    r.split(',').filter(el => new RegExp(`\\b(${zipcode})\\b`, 'gi').exec(el)).forEach(el => {
+        let result = regexp.exec(el);
+
+        resultHome.push(result[1]);
+        resultStreet.push(result[2]);
+    });
+
+    if(resultHome.length) {
+        return [zipcode, ':', resultStreet, '/', resultHome].join('');
+    } else {
+        return [zipcode, ':', '/'].join('');
+    }
+}
+
+let r = "123 Main Street St. Louisville OH 43071,432 Main Long Road St. Louisville OH 43071,786 High Street Pollocksville NY 56432"
+travel(r, ''); // ":/"
+travel(r, "OH 43071"); //"OH 43071:Main Street St. Louisville,Main Long Road St. Louisville/123,432"
+travel(r, "NY 56432"); //"NY 56432:High Street Pollocksville/786"
+travel(r, "NY 5643");  //"NY 5643:/"
