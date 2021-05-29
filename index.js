@@ -166,3 +166,22 @@ function strToHash(str){
 
 strToHash("a=1, b=2, c=3, d=4"); // { 'a': 1, 'b': 2, 'c': 3, 'd': 4}
 strToHash(""); // {}
+
+//--------------------6--------------------
+
+function inArray(array1,array2) {
+    let str = array2.join(', ');
+    return array1.filter(el => str.includes(el)).sort();
+}
+
+const a1 = ["arp", "live", "strong"];
+const  a2 = ["lively", "alive", "harp", "sharp", "armstrong"];
+// returns ["arp", "live", "strong"];
+
+//const a1 = ["tarp", "mice", "bull"];
+//const a2 = ["lively", "alive", "harp", "sharp", "armstrong"];
+//returns [];
+
+inArray(a1,a2);
+
+//--------------------7--------------------
