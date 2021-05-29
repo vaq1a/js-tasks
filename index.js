@@ -154,3 +154,15 @@ console.log(mean("London", data)); //51.199999999999996
 console.log(mean("Beijing", data)); //52.416666666666664
 console.log(variance("London", data)); //57.42833333333374
 console.log(variance("Beijing", data)); //4808.37138888889
+
+//--------------------5--------------------
+
+function strToHash(str){
+    const obj = {};
+    Array.from(str.matchAll(/(\w+)\=(\d+)/g)).forEach(el => obj[el[1]] = Number(el[2]));
+
+    return obj;
+}
+
+strToHash("a=1, b=2, c=3, d=4"); // { 'a': 1, 'b': 2, 'c': 3, 'd': 4}
+strToHash(""); // {}
