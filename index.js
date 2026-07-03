@@ -233,3 +233,16 @@ console.log(phone(dr, "1-098-512-2222")); // "Error => Too many people: 1-098-51
 console.log(phone(dr, "5-555-555-5555")); //"Error => Not found: 5-555-555-5555")
 
 //--------------------8--------------------
+
+// You need to write a single function, FlattenObject(obj), that takes a deeply nested object and returns a new, completely flat object. The keys in the new object should be paths to values, distinct points.
+
+const flattenObject = (obj, prefix = '') =>
+    Object.entries(obj).reduce((acc, [key, value]) => {
+        const newKey = prefix ? `${prefix}.${key}` : key;
+
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+            return { ...acc, ...flattenObject(value, newKey) };
+        }
+
+        return { ...acc, [newKey]: value };
+    }, {});
